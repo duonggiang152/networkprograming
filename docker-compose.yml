@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  user_service_db:
+    container_name: networkprograming
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_DATABASE=managment
+      - MYSQL_ROOT_PASSWORD=123456
+    volumes:
+      - bank_db_data:/var/lib/mysql
+    ports:
+      - 1502:3306
+
+volumes:
+  bank_db_data: {}
