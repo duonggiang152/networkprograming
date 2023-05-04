@@ -12,8 +12,11 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
+import model.Property;
 import model.Room;
+import model.Search;
 
 /**
  *
@@ -27,6 +30,8 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         modelRoomTable = (DefaultTableModel) tableRoom.getModel();
+        modelPropertyTable = (DefaultTableModel) tableProperty.getModel();
+        modelTableSearchProperty = (DefaultTableModel) tableSearchProperty.getModel();
     }
 
     /**
@@ -54,7 +59,35 @@ public class MainFrame extends javax.swing.JFrame {
         deleteRoom = new javax.swing.JButton();
         updatatable = new javax.swing.JButton();
         tabtaisan = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tableProperty = new javax.swing.JTable();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        propertyAddBtn = new javax.swing.JButton();
+        propertyUpdateBtn = new javax.swing.JButton();
+        propertyDeleteBtn = new javax.swing.JButton();
+        updateTableTaisan = new javax.swing.JButton();
+        currentPositionProperty = new javax.swing.JComboBox<>();
+        idProperty = new javax.swing.JTextField();
+        nameProperty = new javax.swing.JTextField();
+        typeProperty = new javax.swing.JTextField();
+        priceProperty = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tableSearchProperty = new javax.swing.JTable();
+        jLabel9 = new javax.swing.JLabel();
+        searchRoomid = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        gteField = new javax.swing.JTextField();
+        lteField = new javax.swing.JTextField();
+        updateSearch = new javax.swing.JButton();
+        searchBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -217,28 +250,285 @@ public class MainFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Phòng", tabphong);
 
+        tableProperty.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Mã tài sản", "Tên", "Loại tài sản", "Vị trí hiện tại", "Giá"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(tableProperty);
+
+        jLabel4.setText("Mã Tài sản");
+
+        jLabel5.setText("Loại tài sản");
+
+        jLabel6.setText("Vị trí hiện tại");
+
+        jLabel7.setText("Tên");
+
+        jLabel8.setText("Giá");
+
+        propertyAddBtn.setText("Thêm");
+        propertyAddBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                propertyAddBtnMouseClicked(evt);
+            }
+        });
+        propertyAddBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                propertyAddBtnActionPerformed(evt);
+            }
+        });
+
+        propertyUpdateBtn.setText("Sửa");
+        propertyUpdateBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                propertyUpdateBtnMouseClicked(evt);
+            }
+        });
+        propertyUpdateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                propertyUpdateBtnActionPerformed(evt);
+            }
+        });
+
+        propertyDeleteBtn.setText("Xóa");
+        propertyDeleteBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                propertyDeleteBtnMouseClicked(evt);
+            }
+        });
+
+        updateTableTaisan.setText("Update");
+        updateTableTaisan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                updateTableTaisanMouseClicked(evt);
+            }
+        });
+        updateTableTaisan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateTableTaisanActionPerformed(evt);
+            }
+        });
+
+        currentPositionProperty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        idProperty.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                idPropertyMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                idPropertyMouseReleased(evt);
+            }
+        });
+        idProperty.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                idPropertyKeyReleased(evt);
+            }
+        });
+
+        nameProperty.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                namePropertyActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout tabtaisanLayout = new javax.swing.GroupLayout(tabtaisan);
         tabtaisan.setLayout(tabtaisanLayout);
         tabtaisanLayout.setHorizontalGroup(
             tabtaisanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 840, Short.MAX_VALUE)
+            .addGroup(tabtaisanLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(tabtaisanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel8))
+                .addGap(42, 42, 42)
+                .addGroup(tabtaisanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(currentPositionProperty, 0, 241, Short.MAX_VALUE)
+                    .addComponent(idProperty)
+                    .addComponent(nameProperty)
+                    .addComponent(typeProperty)
+                    .addComponent(priceProperty))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(tabtaisanLayout.createSequentialGroup()
+                .addComponent(propertyAddBtn)
+                .addGap(32, 32, 32)
+                .addComponent(propertyUpdateBtn)
+                .addGap(51, 51, 51)
+                .addComponent(propertyDeleteBtn)
+                .addGap(55, 55, 55)
+                .addComponent(updateTableTaisan)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         tabtaisanLayout.setVerticalGroup(
             tabtaisanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 565, Short.MAX_VALUE)
+            .addGroup(tabtaisanLayout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 138, Short.MAX_VALUE))
+            .addGroup(tabtaisanLayout.createSequentialGroup()
+                .addGroup(tabtaisanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tabtaisanLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel4)
+                        .addGap(16, 16, 16))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabtaisanLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(idProperty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addGroup(tabtaisanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(nameProperty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(tabtaisanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(typeProperty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(tabtaisanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(currentPositionProperty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(tabtaisanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(priceProperty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(tabtaisanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(propertyAddBtn)
+                    .addComponent(propertyUpdateBtn)
+                    .addComponent(propertyDeleteBtn)
+                    .addComponent(updateTableTaisan))
+                .addGap(85, 85, 85))
         );
 
         jTabbedPane1.addTab("Tài sản", tabtaisan);
+
+        tableSearchProperty.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Mã tài sản", "Tên", "Loại tài sản", "Vị trí hiện tại", "Giá"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(tableSearchProperty);
+
+        jLabel9.setText("Phòng");
+
+        searchRoomid.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel10.setText("Giá tài ");
+
+        jLabel12.setText("Lớn hơn hoặc bằng");
+
+        jLabel13.setText("Nhỏ hơn hoặc bằng");
+
+        updateSearch.setText("Cập nhật");
+        updateSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                updateSearchMouseClicked(evt);
+            }
+        });
+
+        searchBtn.setText("Tìm kiếm");
+        searchBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                searchBtnMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 840, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel10)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(jLabel11)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel13)
+                                .addComponent(jLabel12)
+                                .addComponent(searchBtn)))))
+                .addGap(34, 34, 34)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(gteField)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(searchRoomid, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 6, Short.MAX_VALUE))
+                    .addComponent(lteField))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(268, 268, 268)
+                .addComponent(updateSearch)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 565, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 138, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(searchRoomid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addComponent(jLabel10)
+                .addGap(28, 28, 28)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(gteField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel11)
+                .addGap(15, 15, 15)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(lteField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(updateSearch)
+                    .addComponent(searchBtn))
+                .addGap(88, 88, 88))
         );
 
         jTabbedPane1.addTab("tìm kiếm", jPanel3);
@@ -338,22 +628,21 @@ public class MainFrame extends javax.swing.JFrame {
             packet = new DatagramPacket(relation.getBytes(), relation.getBytes().length, serverAddress, serverPort);
             udpSocket.send(packet);
 
-    
             byte[] buffer = new byte[1024 * 100];
             DatagramPacket packetReceice = new DatagramPacket(buffer, buffer.length);
             udpSocket.receive(packetReceice);
-      
+
             ByteArrayInputStream bais = new ByteArrayInputStream(buffer);
             ObjectInputStream ois = new ObjectInputStream(bais);
             List<Room> rooms = (List<Room>) ois.readObject();
             modelRoomTable.setRowCount(0);
             for (Room roomT : rooms) {
-                modelRoomTable.addRow(new Object[] {
+                modelRoomTable.addRow(new Object[]{
                     roomT.getId(), roomT.getName(), roomT.getDescripe()
                 });
 //                System.out.println(roomT.getId());
             }
-            
+
             udpSocket.close();
         } catch (Exception exception) {
             System.out.println(exception.toString());
@@ -409,6 +698,288 @@ public class MainFrame extends javax.swing.JFrame {
             System.out.println(exception.toString());
         }
     }//GEN-LAST:event_deleteRoomMouseClicked
+
+    private void propertyAddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_propertyAddBtnActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_propertyAddBtnActionPerformed
+
+    private void propertyUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_propertyUpdateBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_propertyUpdateBtnActionPerformed
+
+    private void updateTableTaisanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateTableTaisanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_updateTableTaisanActionPerformed
+
+    private void namePropertyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namePropertyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_namePropertyActionPerformed
+    private void addTableProperty() {
+        try {
+            DatagramSocket udpSocket = new DatagramSocket(); // Create a UDP socket
+            InetAddress serverAddress = InetAddress.getByName("localhost"); // Get the server's address
+            int serverPort = 5000; // Specify the server's port
+            String get = "GET";
+            String relation = "Property";
+            DatagramPacket packet = new DatagramPacket(get.getBytes(), get.getBytes().length, serverAddress, serverPort);
+            udpSocket.send(packet); // Send the packet to the server
+            packet = new DatagramPacket(relation.getBytes(), relation.getBytes().length, serverAddress, serverPort);
+            udpSocket.send(packet);
+
+            byte[] buffer = new byte[1024 * 100];
+            DatagramPacket packetReceice = new DatagramPacket(buffer, buffer.length);
+            udpSocket.receive(packetReceice);
+
+            ByteArrayInputStream bais = new ByteArrayInputStream(buffer);
+            ObjectInputStream ois = new ObjectInputStream(bais);
+            List<Property> properties = (List<Property>) ois.readObject();
+
+            modelPropertyTable.setRowCount(0);
+            for (Property propertyT : properties) {
+                modelPropertyTable.addRow(new Object[]{
+                    propertyT.getId(), propertyT.getName(), propertyT.getType(), propertyT.getRoomId(), propertyT.getPrice()
+                });
+            }
+            udpSocket.close();
+        } catch (Exception exception) {
+            System.out.println(exception.toString());
+        }
+    }
+    private void updateTableTaisanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateTableTaisanMouseClicked
+        // add combo box
+        String name = roomName.getText().toString();
+        String description = descriptionText.getText();
+        try {
+            DatagramSocket udpSocket = new DatagramSocket(); // Create a UDP socket
+            InetAddress serverAddress = InetAddress.getByName("localhost"); // Get the server's address
+            int serverPort = 5000; // Specify the server's port
+            String get = "GET";
+            String relation = "Room";
+            DatagramPacket packet = new DatagramPacket(get.getBytes(), get.getBytes().length, serverAddress, serverPort);
+            udpSocket.send(packet); // Send the packet to the server
+            packet = new DatagramPacket(relation.getBytes(), relation.getBytes().length, serverAddress, serverPort);
+            udpSocket.send(packet);
+
+            byte[] buffer = new byte[1024 * 100];
+            DatagramPacket packetReceice = new DatagramPacket(buffer, buffer.length);
+            udpSocket.receive(packetReceice);
+
+            ByteArrayInputStream bais = new ByteArrayInputStream(buffer);
+            ObjectInputStream ois = new ObjectInputStream(bais);
+            List<Room> rooms = (List<Room>) ois.readObject();
+            DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) currentPositionProperty.getModel();
+            model.removeAllElements();
+            modelRoomTable.setRowCount(0);
+            for (Room roomT : rooms) {
+                currentPositionProperty.addItem(roomT.getId().toString());
+            }
+            udpSocket.close();
+        } catch (Exception exception) {
+            System.out.println(exception.toString());
+        }
+
+        // add tablecontent
+        addTableProperty();
+
+    }//GEN-LAST:event_updateTableTaisanMouseClicked
+
+    private void propertyAddBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_propertyAddBtnMouseClicked
+        // TODO add your handling code here:
+        try {
+            String name = nameProperty.getText().toString();
+            String type = typeProperty.getText().toString();
+            Integer roomId = Integer.parseInt((String) currentPositionProperty.getSelectedItem());
+            Double price = Double.parseDouble(priceProperty.getText().toString());
+            Property property = new Property(null, name, type, roomId, price);
+            try {
+                DatagramSocket udpSocket = new DatagramSocket(); // Create a UDP socket
+                InetAddress serverAddress = InetAddress.getByName("localhost"); // Get the server's address
+                int serverPort = 5000; // Specify the server's port
+                String post = "POST";
+                String provery = "Property";
+                DatagramPacket packet = new DatagramPacket(post.getBytes(), post.getBytes().length, serverAddress, serverPort);
+                udpSocket.send(packet); // Send the packet to the server
+                packet = new DatagramPacket(provery.getBytes(), provery.getBytes().length, serverAddress, serverPort);
+                udpSocket.send(packet);
+                byte[] roomByte = serialize(property);
+                packet = new DatagramPacket(roomByte, roomByte.length, serverAddress, serverPort);
+                udpSocket.send(packet); // Send the packet to the server
+                udpSocket.close();
+            } catch (Exception exception) {
+                System.out.println(exception.toString());
+            }
+        } catch (Exception exception) {
+            System.out.println(exception.toString());
+        }
+    }//GEN-LAST:event_propertyAddBtnMouseClicked
+
+    private void idPropertyMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_idPropertyMousePressed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_idPropertyMousePressed
+
+    private void idPropertyMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_idPropertyMouseReleased
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_idPropertyMouseReleased
+
+    private void idPropertyKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_idPropertyKeyReleased
+        // TODO add your handling code here:
+        String id = idProperty.getText().toString();
+        if (id == null || id.isEmpty() || id.isBlank()) {
+            propertyAddBtn.setEnabled(true);
+            propertyDeleteBtn.setEnabled(false);
+            propertyUpdateBtn.setEnabled(false);
+        } else {
+            propertyAddBtn.setEnabled(false);
+            propertyDeleteBtn.setEnabled(true);
+            propertyUpdateBtn.setEnabled(true);
+        }
+    }//GEN-LAST:event_idPropertyKeyReleased
+
+    private void propertyUpdateBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_propertyUpdateBtnMouseClicked
+        // TODO add your handling code here:
+        Integer id = Integer.parseInt(idProperty.getText().toString());
+        String name = nameProperty.getText().toString();
+        String type = typeProperty.getText().toString();
+        Integer roomId = Integer.parseInt((String) currentPositionProperty.getSelectedItem());
+        String priceText = priceProperty.getText().toString();
+        Double price = Double.parseDouble(priceText.isEmpty() ? "0" : priceText);
+        Property property = new Property(id, name, type, roomId, price);
+        try {
+            DatagramSocket udpSocket = new DatagramSocket(); // Create a UDP socket
+            InetAddress serverAddress = InetAddress.getByName("localhost"); // Get the server's address
+            int serverPort = 5000; // Specify the server's port
+            String post = "POST";
+            String provery = "Property";
+            DatagramPacket packet = new DatagramPacket(post.getBytes(), post.getBytes().length, serverAddress, serverPort);
+            udpSocket.send(packet); // Send the packet to the server
+            packet = new DatagramPacket(provery.getBytes(), provery.getBytes().length, serverAddress, serverPort);
+            udpSocket.send(packet);
+            byte[] roomByte = serialize(property);
+            packet = new DatagramPacket(roomByte, roomByte.length, serverAddress, serverPort);
+            udpSocket.send(packet); // Send the packet to the server
+            udpSocket.close();
+        } catch (Exception exception) {
+            System.out.println(exception.toString());
+        }
+    }//GEN-LAST:event_propertyUpdateBtnMouseClicked
+
+    private void propertyDeleteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_propertyDeleteBtnMouseClicked
+        // TODO add your handling code here:
+        Integer id = Integer.parseInt(idProperty.getText().toString());
+//        String name = nameProperty.getText().toString();
+//        String type = typeProperty.getText().toString();
+//        Integer roomId = Integer.parseInt((String) currentPositionProperty.getSelectedItem());
+//        Double price = Double.parseDouble(priceProperty.getText().toString());
+        Property property = new Property(id, null, null, null, null, true);
+        try {
+            DatagramSocket udpSocket = new DatagramSocket(); // Create a UDP socket
+            InetAddress serverAddress = InetAddress.getByName("localhost"); // Get the server's address
+            int serverPort = 5000; // Specify the server's port
+            String post = "POST";
+            String provery = "Property";
+            DatagramPacket packet = new DatagramPacket(post.getBytes(), post.getBytes().length, serverAddress, serverPort);
+            udpSocket.send(packet); // Send the packet to the server
+            packet = new DatagramPacket(provery.getBytes(), provery.getBytes().length, serverAddress, serverPort);
+            udpSocket.send(packet);
+            byte[] roomByte = serialize(property);
+            packet = new DatagramPacket(roomByte, roomByte.length, serverAddress, serverPort);
+            udpSocket.send(packet); // Send the packet to the server
+            udpSocket.close();
+        } catch (Exception exception) {
+            System.out.println(exception.toString());
+        }
+    }//GEN-LAST:event_propertyDeleteBtnMouseClicked
+
+    private void updateSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateSearchMouseClicked
+        // TODO add your handling code here:
+        String name = roomName.getText().toString();
+        String description = descriptionText.getText();
+        try {
+            DatagramSocket udpSocket = new DatagramSocket(); // Create a UDP socket
+            InetAddress serverAddress = InetAddress.getByName("localhost"); // Get the server's address
+            int serverPort = 5000; // Specify the server's port
+            String get = "GET";
+            String relation = "Room";
+            DatagramPacket packet = new DatagramPacket(get.getBytes(), get.getBytes().length, serverAddress, serverPort);
+            udpSocket.send(packet); // Send the packet to the server
+            packet = new DatagramPacket(relation.getBytes(), relation.getBytes().length, serverAddress, serverPort);
+            udpSocket.send(packet);
+
+            byte[] buffer = new byte[1024 * 100];
+            DatagramPacket packetReceice = new DatagramPacket(buffer, buffer.length);
+            udpSocket.receive(packetReceice);
+
+            ByteArrayInputStream bais = new ByteArrayInputStream(buffer);
+            ObjectInputStream ois = new ObjectInputStream(bais);
+            List<Room> rooms = (List<Room>) ois.readObject();
+            DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) searchRoomid.getModel();
+            model.removeAllElements();
+            searchRoomid.addItem("All Room");
+            for (Room roomT : rooms) {
+                searchRoomid.addItem(roomT.getId().toString());
+            }
+            udpSocket.close();
+        } catch (Exception exception) {
+            System.out.println(exception.toString());
+        }
+
+    }//GEN-LAST:event_updateSearchMouseClicked
+
+    private void searchBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchBtnMouseClicked
+        // TODO add your handling code here:
+        try {
+            String idString = (String) searchRoomid.getSelectedItem();
+            Integer id;
+            if (idString.compareTo("All Room") == 0) {
+                id = null;
+            } else {
+                id = Integer.parseInt(idString);
+            }
+            String gteS = gteField.getText().toString();
+            Double gte = gteS.isEmpty() || gteS.isBlank() ? new Double("-9999999") : Double.parseDouble(gteS);
+            String lteS = lteField.getText().toString();
+            Double lte = lteS.isEmpty() || lteS.isBlank() ? new Double("99999999") : Double.parseDouble(lteS);
+            Search search = new Search(id, gte, lte);
+
+            try {
+                DatagramSocket udpSocket = new DatagramSocket(); // Create a UDP socket
+                InetAddress serverAddress = InetAddress.getByName("localhost"); // Get the server's address
+                int serverPort = 5000; // Specify the server's port
+                String method = "GET";
+                String relation = "Search";
+                DatagramPacket packet = new DatagramPacket(method.getBytes(), method.getBytes().length, serverAddress, serverPort);
+                udpSocket.send(packet); // Send the packet to the server
+                packet = new DatagramPacket(relation.getBytes(), relation.getBytes().length, serverAddress, serverPort);
+                udpSocket.send(packet);
+                byte[] searchByte = serialize(search);
+                packet = new DatagramPacket(searchByte, searchByte.length, serverAddress, serverPort);
+                udpSocket.send(packet); // Send the packet to the server
+
+                byte[] buffer = new byte[1024 * 100];
+                DatagramPacket packetReceice = new DatagramPacket(buffer, buffer.length);
+                udpSocket.receive(packetReceice);
+
+                ByteArrayInputStream bais = new ByteArrayInputStream(buffer);
+                ObjectInputStream ois = new ObjectInputStream(bais);
+                List<Property> properties = (List<Property>) ois.readObject();
+
+                modelTableSearchProperty.setRowCount(0);
+                for (Property propertyT : properties) {
+                    modelTableSearchProperty.addRow(new Object[]{
+                        propertyT.getId(), propertyT.getName(), propertyT.getType(), propertyT.getRoomId(), propertyT.getPrice()
+                    });
+                }
+                udpSocket.close();
+            } catch (Exception exception) {
+                System.out.println(exception.toString());
+            }
+        } catch (Exception exception) {
+            System.out.println(exception.toString());
+        }
+    }//GEN-LAST:event_searchBtnMouseClicked
     private static byte[] serialize(Object object) throws Exception {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
@@ -453,23 +1024,53 @@ public class MainFrame extends javax.swing.JFrame {
     }
     private List<Room> roomsG;
     private DefaultTableModel modelRoomTable;
+    private DefaultTableModel modelPropertyTable;
+    private DefaultTableModel modelTableSearchProperty;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addRoom;
+    private javax.swing.JComboBox<String> currentPositionProperty;
     private javax.swing.JButton deleteRoom;
     private javax.swing.JTextArea descriptionText;
+    private javax.swing.JTextField gteField;
+    private javax.swing.JTextField idProperty;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextField lteField;
+    private javax.swing.JTextField nameProperty;
+    private javax.swing.JTextField priceProperty;
+    private javax.swing.JButton propertyAddBtn;
+    private javax.swing.JButton propertyDeleteBtn;
+    private javax.swing.JButton propertyUpdateBtn;
     private javax.swing.JTextField roomID;
     private javax.swing.JTextField roomName;
+    private javax.swing.JButton searchBtn;
+    private javax.swing.JComboBox<String> searchRoomid;
+    private javax.swing.JTable tableProperty;
     private javax.swing.JTable tableRoom;
+    private javax.swing.JTable tableSearchProperty;
     private javax.swing.JPanel tabphong;
     private javax.swing.JPanel tabtaisan;
+    private javax.swing.JTextField typeProperty;
     private javax.swing.JButton updatatable;
     private javax.swing.JButton updateRoom;
+    private javax.swing.JButton updateSearch;
+    private javax.swing.JButton updateTableTaisan;
     // End of variables declaration//GEN-END:variables
 }
