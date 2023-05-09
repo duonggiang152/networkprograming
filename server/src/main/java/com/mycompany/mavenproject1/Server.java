@@ -148,10 +148,13 @@ public class Server {
 
                     udpSocket.receive(packet);
                     Search search = convertSearch(packet);
+                    System.out.println("===============");
+                    System.out.println("room " + search.getRoomId());
+                    System.out.println("gte " + search.getPriceGte());
+                    System.out.println("lte " + search.getPriceLte());
+
                     List<Property> properties = searchProperties(search);
-                    for(int i = 0; i < properties.size(); i++) {
-                        System.out.println(properties.get(i).getName());
-                    }
+                    System.out.println("lengh " + properties.size());
                     ByteArrayOutputStream byteOutStream = new ByteArrayOutputStream();
                     ObjectOutputStream objectOutStream = new ObjectOutputStream(byteOutStream);
                     objectOutStream.writeObject(properties);
@@ -164,40 +167,40 @@ public class Server {
     }
 
     public static List<Property> searchProperties(Search search) {
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("myPU");
-    EntityManager em = emf.createEntityManager();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("myPU");
+        EntityManager em = emf.createEntityManager();
 
-    String query = "SELECT p FROM Property p WHERE 1=1";
-    if (search.getRoomId() != null) {
-        query += " AND p.roomId = :roomId";
+        String query = "SELECT p FROM Property p WHERE isDelete = 0";
+        if (search.getRoomId() != null) {
+            query += " AND roomId = " + search.getRoomId().toString();
+        }
+        if (search.getPriceGte() != null) {
+            query += " AND price >= " + search.getPriceGte().toString();
+        }
+        if (search.getPriceLte() != null) {
+            query += " AND price <= " + search.getPriceLte().toString();
+        }
+        System.out.println(query);
+//        TypedQuery<Property> typedQuery = em.createQuery(query, Property.class);
+        List<Property> results = em.createQuery(query, Property.class)
+                .getResultList();
+//    if (search.getRoomId() != null) {
+//        typedQuery.setParameter("roomId", search.getRoomId());
+//    }
+//    if (search.getPriceGte() != null) {
+//        typedQuery.setParameter("priceGte", search.getPriceGte());
+//    }
+//    if (search.getPriceLte() != null) {
+//        typedQuery.setParameter("priceLte", search.getPriceLte());
+//    }
+//
+//    List<Property> results = typedQuery.getResultList();
+//        System.out.println(typedQuery.unwrap(org.hibernate.query.Query.class).getQueryString());
+        em.close();
+        emf.close();
+
+        return results;
     }
-    if (search.getPriceGte() != null) {
-        query += " AND p.price >= :priceGte";
-    }
-    if (search.getPriceLte() != null) {
-        query += " AND p.price <= :priceLte";
-    }
-
-        TypedQuery<Property> typedQuery = em.createQuery(query, Property.class);
-
-    if (search.getRoomId() != null) {
-        typedQuery.setParameter("roomId", search.getRoomId());
-    }
-    if (search.getPriceGte() != null) {
-        typedQuery.setParameter("priceGte", search.getPriceGte());
-    }
-    if (search.getPriceLte() != null) {
-        typedQuery.setParameter("priceLte", search.getPriceLte());
-    }
-
-    List<Property> results = typedQuery.getResultList();
-
-    em.close();
-    emf.close();
-
-    return results;
-}
-
 
     private static Object deserialize(byte[] bytes) throws Exception {
         return new ObjectInputStream(new ByteArrayInputStream(bytes)).readObject();

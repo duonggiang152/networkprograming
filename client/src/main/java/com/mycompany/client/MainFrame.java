@@ -431,6 +431,16 @@ public class MainFrame extends javax.swing.JFrame {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
                 {null, null, null, null, null}
             },
             new String [] {
@@ -479,15 +489,14 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel10)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addComponent(jLabel11)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel13)
-                                .addComponent(jLabel12)
-                                .addComponent(searchBtn)))))
+                    .addComponent(jLabel10)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel12)
+                            .addComponent(searchBtn))))
                 .addGap(34, 34, 34)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(gteField)
@@ -939,9 +948,9 @@ public class MainFrame extends javax.swing.JFrame {
                 id = Integer.parseInt(idString);
             }
             String gteS = gteField.getText().toString();
-            Double gte = gteS.isEmpty() || gteS.isBlank() ? new Double("-9999999") : Double.parseDouble(gteS);
+            Double gte = gteS.isEmpty() || gteS.isBlank() ? new Double("-99999") : Double.parseDouble(gteS);
             String lteS = lteField.getText().toString();
-            Double lte = lteS.isEmpty() || lteS.isBlank() ? new Double("99999999") : Double.parseDouble(lteS);
+            Double lte = lteS.isEmpty() || lteS.isBlank() ? new Double("9999999999999") : Double.parseDouble(lteS);
             Search search = new Search(id, gte, lte);
 
             try {
